@@ -2,7 +2,18 @@ const TaskModel = require("../models/task");
 const createError = require("http-errors");
 const { isValidObjectId } = require("mongoose");
 
-const getTasks = (req, res, next) => {};
+const getTasks = async (req, res, next) => {
+  try {
+    if (!req) {
+      throw new createError(500, "something went wrong try again later");
+    }
+    const tasks = await TaskModel.find({});
+    res.render("home.pug", { tasks: tasks, type: "all" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: err.message });
+  }
+};
 
 const addTasks = async (req, res, next) => {
   const data = await req.body;
@@ -126,30 +137,47 @@ async function getEditForm(req, res, next) {
   }
 }
 
-async function view(req,res,next){
-    try{
-        if(!req){throw new createError(500,"something went wrong")}
-        console.log(req)
-        var query = {}
-        const type = await req.body.type
-        console.log(type)
-        if(type==='completed'){query={isCompleted:true}}
-        else if(type==="pending"){query={isCompleted:false}}
-        else{query={}}
-        const tasks = await TaskModel.find(query)
-        console.log(query)
-        var msg = ""
-        if(!tasks.length){msg =`no task left to complete`}
-        else{
-            const count = tasks.length
-            if(type==="completed"){msg = `${count} tasks completed`}
-            else{msg = `${count} tasks are given`}
-        }
-        res.render('home.pug',{tasks:tasks,msg:msg,type:type})
+async function view(req, res, next) {
+  try {
+    if (!req) {
+      throw new createError(500, "something went wrong");
     }
-    catch(err){
-        res.status(err.status||500).json({message:err.message})
+    console.log(req);
+    var query = {};
+    const type = await req.body.type;
+    console.log(type);
+    if (type === "completed") {
+      query = { isCompleted: true };
+    } else if (type === "pending") {
+      query = { isCompleted: false };
+    } else {
+      query = {};
     }
+    const tasks = await TaskModel.find(query);
+    console.log(query);
+    var msg = "";
+    if (!tasks.length) {
+      msg = `no task left to complete`;
+    } else {
+      const count = tasks.length;
+      if (type === "completed") {
+        msg = `${count} tasks completed`;
+      } else {
+        msg = `${count} tasks are given`;
+      }
+    }
+    res.render("home.pug", { tasks: tasks, msg: msg, type: type });
+  } catch (err) {
+    res.status(err.status || 500).json({ message: err.message });
+  }
 }
 
-module.exports = { addTasks, deleteTask, editTask, updateTask,getEditForm,view };
+module.exports = {
+  addTasks,
+  deleteTask,
+  editTask,
+  updateTask,
+  getEditForm,
+  view,
+  getTasks
+};

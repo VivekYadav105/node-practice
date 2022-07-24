@@ -5,9 +5,8 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Tasks Api
         link( rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer")
-        //- link(rel="stylesheet", href="home.css", type='text/css')
-        style 
-            include home.css
+        link(rel="stylesheet", href="/static/home.css", type='text/css')
+        link(rel="shortcut icon", href="/static/logo.png", type="image/x-icon")
     body 
         //- include nav.pug
         .page-wrapper 
@@ -27,7 +26,6 @@ html(lang="en")
                                 p all
                             button.btn(style="width:30%",name="type",type="submit",value="pending",class=`${type=='pending'?'active':''}`) 
                                 p pending
-                            
                 .tasks
                     each task in tasks
                         .task
