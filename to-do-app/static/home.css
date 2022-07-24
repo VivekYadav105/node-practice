@@ -6,8 +6,8 @@
 }
 
 @font-face {
-  font-family: "Anurati-Regular";
-  src: url("../static/Anurati-Regular.otf");
+  font-family: "Anurati Regular";
+  src: url("/static/Anurati-Regular.otf");
 }
 
 .page-wrapper {
@@ -81,6 +81,7 @@
   margin: auto;
   color: white;
   font-family: "Montserrat";
+  font-family: "Anurati Regular";
   letter-spacing: 1.5px;
   /* text-transform: uppercase; */
   align-items: center;

@@ -26,8 +26,11 @@ const start = async () => {
 app.use(morgan("tiny"));
 app.use("/task", taskRouter);
 
+app.use('static',express.static(path.join(__dirname,'static')))
+console.log(path.join(__dirname,"static"))
 app.set("views", path.join(__dirname, "views"));
 app.set("view_engine", "pug");
+
 
 //function to start the app
 start();
