@@ -1,44 +1,50 @@
+mixin task(user,task)
+    .task
+        i.fa-circle(class=`${task.isCompleted?"fa-solid":"fa-regular"}`)
+        p.task-name(style=`text-decoration:${task.isCompleted?"line-through":''}`)= task.name
+        if user
+            .task-buttons 
+                form(method="post", action=`/task/update/${task._id}`) 
+                    button(style="background-color:transparent;border:none;color:white",type="submit",name="complete" value=`${task.isCompleted?false:true}`)
+                        i.fa-solid.fa-xl#status(class=`${task.isCompleted?"fa-xmark":"fa-check"}`)
+                form(method="get", action=`/task/edit/${task._id}`) 
+                    button(style="background-color:transparent;border:none;color:white",type="submit")
+                        i.fa-solid.fa-pencil.fa-xl
+                form(method="post", action=`/task/delete/${task._id}`)
+                    button(style="background-color:transparent;border:none;color:white")
+                        i.fa-solid.fa-trash(name="delete",type="submit")
+        else 
+            -null
+
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Tasks Api
-        link( rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer")
-        link(rel="stylesheet", href="/static/home.css", type='text/css')
-        link(rel="shortcut icon", href="/static/logo.png", type="image/x-icon")
+    include head.pug
     body 
-        //- include nav.pug
-        .page-wrapper 
-            .title-wrapper 
-                h1#page-title To do list
-            .tasks-wrapper
-                .add-task
-                    form(method="post", action="/task/add")
-                        input#task-input(placeholder="Enter the name of task",required,name="taskName")
-                        button.btn
-                            i.fa-plus.fa-2xl
-                .add-task
-                    form(method="post", action="/task/view/")
-                            button.btn(style="width:30%",name="type",type="submit",value="completed",class=`${type=='completed'?'active':''}`)
-                                p completed
-                            button.btn(style="width:30%",name="type",type="submit",value="all",class=`${type=='all'?'active':''}`) 
-                                p all
-                            button.btn(style="width:30%",name="type",type="submit",value="pending",class=`${type=='pending'?'active':''}`) 
-                                p pending
-                .tasks
-                    each task in tasks
-                        .task
-                            i.fa-circle(class=`${task.isCompleted?"fa-solid":"fa-regular"}`)
-                            p.task-name(style=`text-decoration:${task.isCompleted?"line-through":''}`)= task.name
-                            .task-buttons 
-                                form(method="post", action=`/task/update/${task._id}`) 
-                                    button(style="background-color:transparent;border:none;color:white",type="submit",name="complete" value=`${task.isCompleted?false:true}`)
-                                        i.fa-solid.fa-xl#status(class=`${task.isCompleted?"fa-xmark":"fa-check"}`)
-                                form(method="get", action=`/task/edit/${task._id}`) 
-                                    button(style="background-color:transparent;border:none;color:white",type="submit")
-                                        i.fa-solid.fa-pencil.fa-xl#status
-                                form(method="post", action=`/task/delete/${task._id}`)
-                                    button(style="background-color:transparent;border:none;color:white")
-                                        i.fa-solid.fa-trash(name="delete",type="submit")
-             
+        main
+            header 
+                include nav.pug
+            .page-wrapper 
+                .title-wrapper 
+                    h1#page-title To do list
+                .tasks-wrapper
+                    .add-task
+                        form(method="post", action="/task/add")
+                            input#task-input(placeholder="Enter the name of task",name="taskName",required=`${user?true:false}`)
+                            button.btn
+                                i.fa-plus.fa-2xl
+                    .add-task
+                        form
+                            a(style={"width":"30%"},href="/task/view/completed")
+                                button.btn(style="width:100%",name="type",type="button",value="completed",class=`${type=='completed'?'active':''}`)
+                                    p completed
+                            a(style={"width":"30%"},href="/task")
+                                button.btn(style="width:100%",name="type",type="button",value="all",class=`${type=='all'?'active':''}`) 
+                                    p all
+                            a(style={"width":"30%"},href="/task/view/pending")
+                                button.btn(style="width:100%",name="type",type="button",value="pending",class=`${type=='pending'?'active':''}`) 
+                                    p pending
+                
+                        //- p.task(style={"background-color":'rgba(246, 36, 36, 0.574)'}) please login to create yout tasks
+                    .tasks
+                        each task in tasks
+                            +task(user,task)
+

@@ -11,9 +11,11 @@
 }
 main {
   min-height: 100vh;
+  background-color: rgba(0, 0, 255, 0.538);
 }
 header {
   min-height: 10vh;
+  background-color: white;
 }
 nav {
   display: flex;
@@ -53,7 +55,6 @@ nav ul li {
 }
 
 .page-wrapper {
-  background-color: rgba(0, 0, 255, 0.538);
   width: 100vw;
   min-height: 90vh;
 }
@@ -65,7 +66,14 @@ nav ul li {
   padding-bottom: 2rem;
   text-align: center;
 }
-
+#page-title-2{
+ padding: 0;
+  position: relative;
+  color: blueviolet;
+  text-align: center;
+  font-family: "Montserrat";
+  text-transform: uppercase;
+}
 .tasks-wrapper {
   background-color: white;
   max-width: 800px;
@@ -95,13 +103,23 @@ nav ul li {
   font-family: "Space Mono", monospace;
 }
 
-#task-input {
+label{
+  font-family:"Space Mono",monospace;
+  padding: .75rem;
+  margin: 0 1.5rem;
+  background-color: rgb(216, 195, 57);
+  box-shadow: -3px -3px 1px 1px rgba(247, 224, 75, 0.589);
+}
+
+input{
   background-color: transparent;
   color: blue;
   border: none;
   border-bottom: 2px solid blue;
   padding: 1rem;
+  letter-spacing: 1px;
   width: 80%;
+  min-width: 300px !important;
   color: blue;
   font-family: "Space Mono", monospace;
 }
@@ -117,7 +135,6 @@ nav ul li {
 }
 
 .task {
-  display: flex;
   padding: 1rem;
   display: flex;
   width: 80%;
@@ -126,7 +143,7 @@ nav ul li {
   color: white;
   font-family: "Anurati Regular";
   letter-spacing: 1.5px;
-  /* text-transform: uppercase; */
+  text-transform: uppercase;
   align-items: center;
   justify-content: space-between;
 }
@@ -135,14 +152,16 @@ nav ul li {
   flex: 1;
 }
 
+
 #checkbox {
   appearance: none;
   border-radius: 5px;
   position: relative;
   background-color: rgba(0, 0, 255, 0.242);
   border: 2px solid rgba(0, 0, 255, 0.538);
-  width:25px;
-  height: 25px;
+  width:25px !important;
+  min-width: 25px !important;
+  height: 25px !important;
 }
 #checkbox:checked {
   appearance: none;
@@ -175,14 +194,19 @@ nav ul li {
 
 .btn {
   width: 45px;
+  min-width: fit-content;
+  padding:0 .5rem ;
   height: 45px;
   background-color: rgba(0, 0, 255, 0.538);
+  border: 2px solid transparent;
   color: white;
-  border: none;
   transition: 0.3s;
   box-shadow: 5px 5px 0px 2.5px rgba(31, 16, 149, 0.588);
   font-family: "Space Mono", monospace !important;
   letter-spacing: 1px;
+}
+a{
+  text-decoration: none;
 }
 
 .btn:hover {
@@ -218,6 +242,15 @@ i {
 
 #status {
   padding-top: 3px;
+}
+
+.form-field-wrapper{
+  margin: 0 1rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
 }
 
 #status:hover {

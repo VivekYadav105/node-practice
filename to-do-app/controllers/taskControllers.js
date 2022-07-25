@@ -1,14 +1,18 @@
 const TaskModel = require("../models/task");
 const createError = require("http-errors");
 const { isValidObjectId } = require("mongoose");
+const devTasks = require("../static/devTasks");
+const jwt = require("jsonwebtoken");
 
 const getTasks = async (req, res, next) => {
   try {
     if (!req) {
       throw new createError(500, "something went wrong try again later");
     }
-    const tasks = await TaskModel.find({});
-    res.render("home.pug", { tasks: tasks, type: "all" });
+    var tasks =''
+    if(req.cookies.user){ tasks = await TaskModel.find({userid:req.cookies.user.id});}
+    else{tasks = devTasks}
+    res.render("home.pug", { tasks: tasks, type: "all",user:req.cookies.user});
   } catch (err) {
     console.log(err);
     res.status(500).json({ msg: err.message });
@@ -17,10 +21,12 @@ const getTasks = async (req, res, next) => {
 
 const addTasks = async (req, res, next) => {
   const data = await req.body;
+  const taskName = await req.body.taskName
   try {
-    const task = await TaskModel.create({ name: req.body.taskName });
+    if(!taskName){alert("please add the task name");throw new createError(400,"enter task name")}
+    const task = await TaskModel.create({ name: req.body.taskName,userid:req.cookies.user.id });
     res
-      .redirect("/task/")
+      .redirect("/task")
       .status(200)
       .json({ task: data, success: true, message: "added successfully" });
   } catch (err) {
@@ -29,6 +35,7 @@ const addTasks = async (req, res, next) => {
       task: false,
       message: "adding to db failed",
       reason: err.message,
+      status:err.status
     });
   }
 };
@@ -66,7 +73,8 @@ const updateTask = async (req, res, next) => {
 const editTask = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const value = await req.body.taskName;
+    const taskName = await req.body.taskName;
+    const value = await req.body.status;
     if (!id) throw new createError(400, `id is not recieved`);
     if (!isValidObjectId(id)) {
       throw new createError(400, `given id is not valid`);
@@ -76,7 +84,7 @@ const editTask = async (req, res, next) => {
       throw new createError(404, `task with id:${id} is not found`);
     const updatedTask = await TaskModel.findByIdAndUpdate(
       id,
-      { $set: { name: value } },
+      { $set: { name: taskName,isCompleted:value?true:false } },
       { new: true }
     );
     if (updatedTask)
@@ -128,7 +136,7 @@ async function getEditForm(req, res, next) {
     const tasks = await TaskModel.find({ _id: id });
     if (!tasks.length)
       throw new createError(404, `task with id:${id} is not found`);
-    res.render("edit.pug", { tasks: tasks });
+    res.render("edit.pug", { tasks: tasks,user:req.cookies.user });
   } catch (err) {
     res
       .status(err.status || 500)
@@ -143,30 +151,14 @@ async function view(req, res, next) {
       throw new createError(500, "something went wrong");
     }
     console.log(req);
+    const completedTasks = devTasks.filter((i)=>{return i.isCompleted})
+    const incompleteTasks = devTasks.filter((i)=>{return !i.isCompleted})
     var query = {};
-    const type = await req.body.type;
+    const type = await req.params.type;
     console.log(type);
-    if (type === "completed") {
-      query = { isCompleted: true };
-    } else if (type === "pending") {
-      query = { isCompleted: false };
-    } else {
-      query = {};
-    }
+      query = type=="completed"? { isCompleted: true,userid:req.cookies.user.id }:{ userid:req.cookies.user.id,isCompleted: false };
     const tasks = await TaskModel.find(query);
-    console.log(query);
-    var msg = "";
-    if (!tasks.length) {
-      msg = `no task left to complete`;
-    } else {
-      const count = tasks.length;
-      if (type === "completed") {
-        msg = `${count} tasks completed`;
-      } else {
-        msg = `${count} tasks are given`;
-      }
-    }
-    res.render("home.pug", { tasks: tasks, msg: msg, type: type });
+    res.render("home.pug",{ tasks: tasks, type: type,devTasks:type=="completed"?completedTasks:incompleteTasks,user:req.cookies.user });
   } catch (err) {
     res.status(err.status || 500).json({ message: err.message });
   }
