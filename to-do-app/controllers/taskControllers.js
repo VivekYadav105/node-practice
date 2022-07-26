@@ -27,8 +27,8 @@ const addTasks = async (req, res, next) => {
     const task = await TaskModel.create({ name: req.body.taskName,userid:req.cookies.user.id });
     res
       .redirect("/task")
-      .status(200)
-      .json({ task: data, success: true, message: "added successfully" });
+      // .status(200)
+      // .json({ task: data, success: true, message: "added successfully" });
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -57,11 +57,12 @@ const updateTask = async (req, res, next) => {
       { new: true }
     );
     if (updatedTask) {
-      res.redirect("/task").status(200).json({
-        message: "task updated succesfully",
-        "update task": updatedTask,
-        success: true,
-      });
+      res.redirect("/task")
+      // .status(200).json({
+      //   message: "task updated succesfully",
+      //   "update task": updatedTask,
+      //   success: true,
+      // });
     }
   } catch (err) {
     res
@@ -113,11 +114,12 @@ const deleteTask = async (req, res, next) => {
       throw new createError(404, `task with id:${id} is not found`);
     const updatedTask = await TaskModel.findByIdAndRemove(id, { new: true });
     if (updatedTask) {
-      res.redirect("/task").status(200).json({
-        message: "task removed succesfully",
-        "removed task": updatedTask,
-        success: true,
-      });
+      res.redirect("/task")
+      // .status(200).json({
+      //   message: "task removed succesfully",
+      //   "removed task": updatedTask,
+      //   success: true,
+      // });
     }
   } catch (err) {
     res
