@@ -22,10 +22,10 @@
     "node-mailer": "^0.1.1",
     "node-popup": "^0.1.14",
     "pug": "^3.0.2",
+    "morgan": "^1.10.0",
     "update": "^0.7.4"
   },
   "devDependencies": {
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.19"
   }
 }
