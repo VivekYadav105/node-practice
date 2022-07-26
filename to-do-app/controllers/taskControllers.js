@@ -150,15 +150,12 @@ async function view(req, res, next) {
     if (!req) {
       throw new createError(500, "something went wrong");
     }
-    console.log(req);
-    const completedTasks = devTasks.filter((i)=>{return i.isCompleted})
-    const incompleteTasks = devTasks.filter((i)=>{return !i.isCompleted})
     var query = {};
     const type = await req.params.type;
     console.log(type);
       query = type=="completed"? { isCompleted: true,userid:req.cookies.user.id }:{ userid:req.cookies.user.id,isCompleted: false };
     const tasks = await TaskModel.find(query);
-    res.render("home.pug",{ tasks: tasks, type: type,devTasks:type=="completed"?completedTasks:incompleteTasks,user:req.cookies.user });
+    res.render("home.pug",{ tasks: tasks, type: type,user:req.cookies.user });
   } catch (err) {
     res.status(err.status || 500).json({ message: err.message });
   }
