@@ -26,9 +26,9 @@ const signup = async (req, res, next) => {
       },
       { new: true }
     );
-    res
-      .status(200)
-      .json({ msg: "user created succesfully", success: true, user: user2 });
+    res.redirect("/user/login")
+      // .status(200)
+      // .json({ msg: "user created succesfully", success: true, user: user2 });
   } catch (err) {
     showError(err,req,res,next)}
 };
