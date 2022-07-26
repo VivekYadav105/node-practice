@@ -27,8 +27,8 @@ const addTasks = async (req, res, next) => {
     const task = await TaskModel.create({ name: req.body.taskName,userid:req.cookies.user.id });
     res
       .redirect("/task")
-      // .status(200)
-      // .json({ task: data, success: true, message: "added successfully" });
+      .status(200)
+      .json({ task: data, success: true, message: "added successfully" });
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -98,7 +98,6 @@ const editTask = async (req, res, next) => {
       .status(err.status || 500)
       .json({ message: err.message, status: err.status || 500 });
   }
-  res.redirect("/task");
 };
 
 const deleteTask = async (req, res, next) => {

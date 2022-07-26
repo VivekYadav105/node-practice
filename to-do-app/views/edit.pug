@@ -18,7 +18,7 @@ html(lang="en")
                                         i.fa-check.fa-2xl.fa-solid
                                 .tasks
                                     .task
-                                        input#checkbox(type="checkbox", name="status" checked=`${task.isCompleted}` value=true)
+                                        input#checkbox(type="checkbox", name="status" checked=`${task.isCompleted}`)
                                         p.task-name= task.name
                                     //- -var temp = task.isCompleted
                                     //- button(style="background-color:transparent;border:none;color:white",type="button",onclick=()=>{temp?true:false})
