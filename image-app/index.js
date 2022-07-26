@@ -1,5 +1,10 @@
 const express = require('express')
-
+require('dotenv').config()
 const app = express()
 
-app.get('/',(req,res)=>{console.log("app build successfull --- node --- express")})
+const PORT = process.env.PORT || 5000
+
+app.get('/',(req,res)=>{res.send("app build successfull --- node --- express")})
+
+app.listen(PORT,()=>{console.log("listening")})
+
