@@ -88,11 +88,12 @@ const editTask = async (req, res, next) => {
       { new: true }
     );
     if (updatedTask)
-      res.redirect("/task").status(200).json({
-        message: "task updated succesfully",
-        "update task": updatedTask,
-        success: true,
-      });
+       res.redirect("/task")
+      //.status(200).json({
+      //   message: "task updated succesfully",
+      //   "update task": updatedTask,
+      //   success: true,
+      // });
   } catch (err) {
     res
       .status(err.status || 500)
