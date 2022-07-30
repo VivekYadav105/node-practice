@@ -1,7 +1,8 @@
 mixin task(user,task)
     .task
         i.fa-circle(class=`${task.isCompleted?"fa-solid":"fa-regular"}`)
-        p.task-name(style=`text-decoration:${task.isCompleted?"line-through":''}`)= task.name
+        -const taskName = task.name.length<15?task.name:task.name.substring(0,15) + '...'
+        p.task-name(style=`text-decoration:${task.isCompleted?"line-through":''}`)= taskName
         if user
             .task-buttons 
                 form(method="post", action=`/task/update/${task._id}`) 
