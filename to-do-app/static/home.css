@@ -262,6 +262,53 @@ i {
   color: blue;
 }
 
+.error{
+  position: absolute;
+  top:0;
+  left:50%;
+  transform: translate(-50%);
+  display: flex;
+  color: white;
+  padding:.5rem 1rem;
+  top:7.5px;
+  transition: 0.3s;
+  align-items: center;
+  font-family: 'Montserrat';
+  border-radius: 10px;
+  animation: error .3s linear backwards;
+}
+
+.error p{
+  margin: 0 1.5rem;
+}
+
+.error i{
+  font-size: 24px !important;
+}
+
+.error.danger{
+  background-color: rgba(208, 43, 43, 0.482);
+  border: 2px solid brown;
+}
+
+.error.warn{
+  background-color: rgba(231, 228, 63, 0.534);
+  border: 2px solid rgb(87, 87, 6);
+  color: black;
+}
+
+@keyframes error {
+  0%{
+    top:-50px
+  };
+  50%{
+    top: 7.5px
+  };
+  100%{
+    top: -100px;
+  }
+}
+
 @media screen and (max-width:650px) {
   nav{
     padding: 1rem 0;

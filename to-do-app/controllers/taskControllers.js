@@ -23,10 +23,9 @@ const addTasks = async (req, res, next) => {
   const data = await req.body;
   const taskName = await req.body.taskName
   try {
-    if(!taskName){alert("please add the task name");throw new createError(400,"enter task name")}
+    if(!taskName){throw new createError(400,"enter task name")}
     const task = await TaskModel.create({ name: req.body.taskName,userid:req.cookies.user.id });
-    res
-      .redirect("/task")
+    res.redirect("/task")
       // .status(200)
       // .json({ task: data, success: true, message: "added successfully" });
   } catch (err) {
@@ -36,7 +35,7 @@ const addTasks = async (req, res, next) => {
       message: "adding to db failed",
       reason: err.message,
       status:err.status
-    });
+    }).redirect("/task")
   }
 };
 
