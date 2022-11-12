@@ -26,8 +26,8 @@ const addTasks = async (req, res, next) => {
     if(!taskName){throw new createError(400,"enter task name")}
     const task = await TaskModel.create({ name: req.body.taskName,userid:req.cookies.user.id });
     res.redirect("/task")
-      // .status(200)
-      // .json({ task: data, success: true, message: "added successfully" });
+      .status(200)
+      .json({ task: data, success: true, message: "added successfully" });
   } catch (err) {
     res.status(500).json({
       success: false,

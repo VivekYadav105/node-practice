@@ -24,7 +24,6 @@ html(lang="en")
             header 
                 include nav.pug
                 include error.pug
-                +error("warn",'bad request')
 
             .page-wrapper 
                 .title-wrapper 
@@ -43,7 +42,7 @@ html(lang="en")
                             a(style={"width":"30%"},href="/task")
                                 button.btn(style="width:100%",name="type",type="button",value="all",class=`${type=='all'?'active':''}`) 
                                     p all
-                            a(style={"width":"30%"},href="/task/view/pending")
+                            a(style={"width":"30%"},href="/task/view/pend")
                                 button.btn(style="width:100%",name="type",type="button",value="pending",class=`${type=='pending'?'active':''}`) 
                                     p pending
                 

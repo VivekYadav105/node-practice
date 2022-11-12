@@ -71,7 +71,7 @@ const forgotPassword = async (req,res,next)=>{
     const {email} = req.body
     const user = await userModel.findOne({email:email})
     if(!user){throw new CustomError(404,"user with give email is not found")}
-    res.send(`congrats ${user.fname+" "+user.lname} you are fucked up`)  
+    res.send(`congrats ${user.fname+" "+user.lname} lost password !!`)  
 }
 
 module.exports = { signup, login,forgotPassword };
