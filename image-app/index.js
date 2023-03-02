@@ -10,7 +10,7 @@ const connection = require("./connection");
 const {userRouter} = require("./router/userRouter");
 const imageRouter = require("./router/imageRouter")
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 app.use(morgan("short"));
 app.use(express.json())
@@ -22,7 +22,7 @@ app.use(cookieParser())
 app.use("/image",imageRouter)
 app.set('/views',path.join(__dirname,'views'))
 app.set('view_engine','pug')
-app.set('/static',express.static(path.join(__dirname,'/public')))
+app.use('/public',express.static(path.join(__dirname,'/public')))
 
 connection(process.env.MONGO_URL, () => {
   app.listen(PORT, () => {

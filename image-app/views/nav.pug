@@ -1,0 +1,23 @@
+.container-fluid.vw-100
+    nav 
+        .logo 
+            .img-wrapper
+                img(src="/public/logo.png",style={"width":"30px","height":"30px"})
+            h1
+                span(style={"color":"rgba(246, 36, 36, 0.574)"}) Image
+                span(style={"color":"rgba(0, 0, 255, 0.538)"}) Upload 
+        ul.nav-list 
+            if user
+                li 
+                    a(href="/user/logout")
+                        button.btn-retro.active
+                            p logout
+            else
+                li 
+                    a(href="/user/login")
+                        button.btn-retro 
+                            p login
+            li 
+                a(href="/image/upload")
+                    button.btn-retro
+                        p upload

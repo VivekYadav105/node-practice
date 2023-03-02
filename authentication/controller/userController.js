@@ -1,3 +1,5 @@
+const userModel = require('../models/user')
+
 const loginPage = (req,res,next)=>{
     res.render('login.ejs')
 }
@@ -15,6 +17,34 @@ const secretsPage = (req,res,next)=>{
     res.render('secrets.ejs')
 }
 
+const registerUser = async (req,res,next)=>{
+    if(!req.body){throw new Error("something went wrong")}
+    console.log(req.body)
+    const {username,password} =await req.body
+    console.log(username,password)
+    if((await userModel.find({username:username})).length){throw new Error("user already exists in database")}
+    const user = await userModel.create({username:username,password:password},{new:true})
+    res.redirect('/login')
+}
 
-module.exports = {loginPage,registerPage,homePage,newSecretPage,secretsPage}
+const loginUser = async (req,res,next)=>{
+    if(!req.body){throw new Error("something went wrong")}
+    console.log(req.body)
+    const {username,password} =await req.body
+    console.log(username,password)
+    const user =await userModel.findOne({username:username})
+    if(user){
+        if(user.password === password){res.redirect("/")}
+        else{
+            res.redirect("/login")
+        }
+    }
+    else{
+        throw new Error("user does not exists in database")
+    }
+    // const user = await userModel.create({username:username,password:password},{new:true})
+    res.redirect('/login')
+}
+
+module.exports = {loginPage,registerPage,homePage,newSecretPage,secretsPage,registerUser,loginUser}
 

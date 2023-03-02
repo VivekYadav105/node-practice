@@ -1,17 +1,19 @@
 html
     include head.pug
-    body
-        .vh-100.vw-100.bg-secondary.p-3
+    body.bg-secondary
+        header
+            include nav.pug
+        .vw-100.bg-secondary.p-3
             .container-fluid.w-100.bg-dark.p-3.rounded
                 .row.p-2.m-2
-                    .alert.alert-primary
-                        h1.text-center.fw-bold Image Upload App
-                    form(action="/image/upload", method="post" enctype="multipart/form-data").border.border-warning
-                        .form-group.my-3.px-3
-                            label(htmlFor="image").form-label.text-white Image Title
-                            input(name="title", required)#image.p-2.rounded.text-danger.w-100
-
-                        .form-group.d-flex.justify-content-around.align-items-center.my-3
-                            label(htmlFor="MyImage").text-white Image destination
-                            input(type="file", name="MyImage").image.mx-3.p-2.rounded.bg-warning.text-danger.w-50 
-                            button(type="submit").btn.btn-outline-success Upload 
+                    .col-12.col-md-10.m-auto.h-auto
+                        .alert.alert-primary
+                            h1.text-center.fw-bold Image Upload App
+                        form(action="/image/upload", method="post" enctype="multipart/form-data").border.border-warning
+                            .form-group.my-3.px-3
+                                label(htmlFor="image").form-label.text-white Image Title
+                                input(name="title",placeholder="enter the image title here", required)#image.p-2.rounded.text-danger.w-100
+                            .form-group.d-flex.justify-content-around.align-items-center.my-3
+                                label(htmlFor="MyImage").text-white Image 
+                                input(type="file", name="MyImage").image.mx-3.p-2 
+                                button(type="submit").btn-retro.success Upload 

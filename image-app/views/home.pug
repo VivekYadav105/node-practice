@@ -1,0 +1,30 @@
+html 
+    include head.pug 
+    body 
+        main.bg-secondary.relative
+            header 
+                include nav.pug 
+            .container-fluid.pt-3.min-vh-100 
+                .alert.alert-warning.border-2.border-warning
+                    h1.text-center.text-warning Home page
+                if images.length==0
+                    .container-fluid.pt-3
+                        .alert.alert-primary.mx-3.px-4.text-center there are no images here
+                            button.btn.btn-success 
+                                a.text-decoration-none(href="/images/upload") upload here
+                else
+                    .row
+                        each img in images
+                            .col-10.col-md-6.col-lg-3.m-auto 
+                                a(href=`/image/view/${img._id}`)
+                                    .alert.alert-dark.p-3.border.border-dark.d-inline-block.rounded.m-2.shadow-lg
+                                        img(src=img.path, alt=img.title).border-dark.border.rounded
+                                        .d-flex.flex-column
+                                            span.lead.m-auto.mt-2.text-primary= "title: " + img.title
+                                            span.lead.m-auto.mt-1.text-danger="Name: " + img.originalname
+                                            span.lead.m-auto.mt-1.text-danger="file name: " + img.filename.substring(0,10)+"..."
+                    
+                .absolute(style={"top":"0px","left":"50%","transform":"translateY(20px)"}).d-inline-block
+                    button.btn-retro.active.absolute loadmore
+                        
+

@@ -4,11 +4,6 @@ const jwt = require('jsonwebtoken')
 const userModel = require('../models/user')
 
 exports.login = (req,res,next)=>{
-    // const {email,password} = await req.body
-    // const user = await userModel.find({email:email,password:password})
-    // if(user){
-    //     res.cookie
-    // }
     res.send('login controller')
 }
 
@@ -28,6 +23,12 @@ exports.resetPassword = (req,res,next)=>{
     res.send('reset password controller')
 }
 
-
-
-
+exports.loginPage = (req,res,next)=>{
+    res.render('login.pug')
+} 
+exports.signupPage = (req,res,next)=>{
+    res.render('signup.pug')
+} 
+exports.forgotPasswordPage = (req,res,next)=>{
+    res.render('forgotpassword.pug')
+} 
