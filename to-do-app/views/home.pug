@@ -1,7 +1,8 @@
 mixin task(user,task)
     .task
         i.fa-circle(class=`${task.isCompleted?"fa-solid":"fa-regular"}`)
-        p.task-name(style=`text-decoration:${task.isCompleted?"line-through":''}`)= task.name
+        -const taskName = task.name.length<15?task.name:task.name.substring(0,15) + '...'
+        p.task-name(style=`text-decoration:${task.isCompleted?"line-through":''}`)= taskName
         if user
             .task-buttons 
                 form(method="post", action=`/task/update/${task._id}`) 
@@ -22,6 +23,8 @@ html(lang="en")
         main
             header 
                 include nav.pug
+                include error.pug
+
             .page-wrapper 
                 .title-wrapper 
                     h1#page-title To do list
@@ -39,7 +42,7 @@ html(lang="en")
                             a(style={"width":"30%"},href="/task")
                                 button.btn(style="width:100%",name="type",type="button",value="all",class=`${type=='all'?'active':''}`) 
                                     p all
-                            a(style={"width":"30%"},href="/task/view/pending")
+                            a(style={"width":"30%"},href="/task/view/pend")
                                 button.btn(style="width:100%",name="type",type="button",value="pending",class=`${type=='pending'?'active':''}`) 
                                     p pending
                 

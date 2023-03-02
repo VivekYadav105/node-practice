@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Space+Mono&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+}
+li{
+  list-style-type: none;
+}
+p{
+  margin: 0 !important;
+}
+
+@font-face {
+  font-family: "Anurati Regular";
+  src: url("/static/Anurati-Regular.otf");
+}
+main {
+  min-height: 100vh;
+  background-color: rgba(4, 4, 23, 0.538);
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgba(27, 119, 195, 0.386);
+}
+nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5rem;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 3rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo .img-wrapper {
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 5px 4px 10px 4px rgba(58, 58, 199, 0.577),
+    4px -5px 10px 4px rgba(0, 0, 255, 0.249),
+    -4px 6px 10px 4px rgba(246, 36, 36, 0.574),
+    -4px -4px 10px 4px rgba(194, 59, 59, 0.341);
+}
+
+.logo h1 {
+  font-family: "Space Mono", monospace;
+  display: inline-block;
+  padding: 0 2rem;
+}
+
+input{
+  background-color: transparent;
+  color: #dc3545;
+  border: none;
+  border-bottom: 2px solid #dc3545;
+  padding: 1rem;
+  border-radius: 0 !important;
+  letter-spacing: 1px;
+  width: 80%;
+  min-width: 300px !important;
+  font-family: "Space Mono", monospace;
+}
+
+.btn-retro {
+  padding:.5rem;
+  margin:0 .5rem;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 255, 0.538);
+  border: 2px solid transparent;
+  color: white;
+  transition: 0.3s;
+  box-shadow: 5px 5px 0px 2.5px rgba(31, 16, 149, 0.588);
+  font-family: "Space Mono", monospace !important;
+  letter-spacing: 1px;
+}
+.image{
+  background-color: #c3142646;
+  color: white;
+  width: 400px;
+  border: 2px solid #df112593;
+}
+
+.btn-retro:hover {
+  background-color: rgba(0, 0, 255, 0.249);
+  color: rgba(191, 191, 236, 0.538);
+  border: 2px solid rgba(0, 0, 255, 0.549);
+  box-shadow: 2px 2px 0px 1.5px rgba(26, 26, 42, 0.588) !important;
+}
+
+.btn-retro.active {
+  border: 2px solid rgba(216, 62, 62, 0.997);
+  background-color: rgba(246, 36, 36, 0.574);
+  box-shadow: 5px 5px 0px 2.5px rgba(149, 40, 16, 0.588);
+  color: black;
+}
+
+.btn-retro.success{
+  color:black;
+  background-color:  rgba(21, 169, 21, 0.655);
+  border: 2px solid rgb(3, 35, 3);
+  box-shadow: 7.5px 7.5px 0px 2.5px rgb(31, 104, 31);
+}
+
+.btn-retro.success:hover{
+  box-shadow: 2px 2px 0px 1.5px rgba(30, 102, 38, 0.588) !important; 
+}
+
+@media screen and (max-width:650px) {
+  nav{
+    padding: 1rem 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+ }
+ 
+ form{
+  padding: 0 !important;
+ }
+ label{
+  margin: 0;
+ }
+  
+}
+
+@media screen and (max-width:400px) {
+  label{
+    display: none;
+  }
+
+  .form-field-wrapper{
+    margin: 0;
+  }
+  .task{
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+  .fa-circle{
+    display: none;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "route": "/image-upload",
+      "address": "[::1]:5000"
+    },
+    {
+      "route": "/to-do-app",
+      "address": "[::1]:4000"
+    }
+  ]
+}
